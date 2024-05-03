@@ -1,3 +1,9 @@
+-- This SQL code analyzes ad campaigns from Facebook Ads and Google Ads, 
+computes key metrics like CTR, CPC, CPM, and ROMI, 
+tracks their monthly changes, including decoding. 
+It helps companies make informed ad decisions to maximize return on investment.
+
+
 CREATE OR REPLACE FUNCTION pg_temp.decode_url_part(p varchar) RETURNS varchar AS $$
 SELECT
   convert_from(CAST(E'\\x' || string_agg(CASE WHEN length(r.m[1]) = 1 THEN encode(convert_to(r.m[1], 'SQL_ASCII'), 'hex') ELSE substring(r.m[1] from 2 for 2) END, '') AS bytea), 'UTF8')
